@@ -1,1 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADAM'S INSTA360 📷</title>
+<style>
+/* --- CSS --- */
+body {font-family: Arial,sans-serif; margin:0; padding:0; line-height:1.6; background:#f9f9f9;}
+header {background:#222;color:#fff;padding:1rem;text-align:center;}
+header nav a {color:#fff;margin:0 1rem;text-decoration:none; cursor:pointer;}
+section {padding:2rem; max-width:900px; margin:0 auto; background:#fff; margin-bottom:1rem; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.prices ul, .rules ul, .faq ul {list-style:none; padding:0;}
+.prices li, .rules li, .faq li {margin:0.5rem 0;}
+input, select, textarea, button {display:block; width:100%; padding:0.5rem; margin:0.5rem 0; border-radius:4px; border:1px solid #ccc;}
+button {background:#222; color:#fff; border:none; cursor:pointer;}
+button:hover {background:#555;}
+.popup {position:fixed; top:10%; left:50%; transform:translateX(-50%); background:#fff; border:1px solid #222; padding:1rem; z-index:999; display:block; box-shadow:0 2px 10px rgba(0,0,0,0.3);}
+.popup button {margin-top:1rem;}
+.owner img {width:150px; border-radius:50%;}
+.hero img {width:100%; border-radius:8px;}
+.hidden {display:none;}
+</style>
+</head>
+<body>
 
+<!-- Pop-up welcome -->
+<div id="popup" class="popup">
+<p>Selamat datang ke ADAM'S INSTA360! Sewa Insta360 anda dengan mudah. 📷</p>
+<button onclick="closePopup()">Close</button>
+</div>
+
+<!-- Header -->
+<header>
+<h1>ADAM'S INSTA360 📷</h1>
+<nav>
+<a onclick="showSection('home')">Home</a>
+<a onclick="showSection('booking')">Booking</a>
+<a onclick="showSection('feedback')">Feedback/FAQ</a>
+</nav>
+</header>
+
+<!-- Home Section -->
+<section id="home">
+<div class="hero">
+<img src="assets/images/camera1.jpg" alt="Insta360 Camera">
+<h2>Professional Insta360 Camera Rental</h2>
+<p>Cover area: Selangor / Jauh Post 🥷🏻</p>
+</div>
+
+<div class="prices">
+<h2>Pricing</h2>
+<ul>
+<li>1 Day = RM60</li>
+<li>4 Days ≥ RM55/Day</li>
+<li>7 Days ≥ RM50/Day</li>
+</ul>
+</div>
+
+<div class="socials">
+<h2>Follow / Contact</h2>
+<a href="https://www.tiktok.com/@d8mmpcy" target="_blank">TikTok</a> |
+<a href="https://www.instagram.com/d8mmhz/" target="_blank">Instagram</a> |
+<a href="https://wa.me/60123456789?text=Hi%20Adam!" target="_blank">WhatsApp</a>
+</div>
+
+<div class="owner">
+<h2>Owner</h2>
+<img src="assets/images/owner.jpg" alt="Adam">
+<p>Hi! I’m Adam, and I personally ensure all Insta360 cameras are ready for your adventure. 📷</p>
+</div>
+</section>
+
+<!-- Booking Section -->
+<section id="booking" class="hidden">
+<h2>Peraturan Menyewa</h2>
+<ul class="rules">
+<li>Deposit RM50 dikenakan & dipulangkan selepas kamera dipulangkan baik.</li>
+<li>Batal selepas bayaran → deposit terbatal/burn.</li>
+<li>Sertakan IC & lesen untuk keselamatan.</li>
+<li>Penyewa bertanggungjawab sepenuhnya atas kamera.</li>
+<li>Kerosakan → bayaran kos kerosakan wajib.</li>
+<li>Kamera dipulangkan ikut masa → lewat RM10/jam.</li>
+</ul>
+
+<h2>Tempah Sekarang</h2>
+<form name="booking" method="POST" data-netlify="true">
+<input type="hidden" name="form-name" value="booking">
+<label>Nama:<input type="text" name="name" required></label>
+<label>No. Telefon:<input type="tel" name="phone" required></label>
+<label>Alamat:<input type="text" name="address" required></label>
+<label>Tempoh Sewa (Hari):<input type="number" name="days" required></label>
+<label>Tarikh Mula Sewa:<input type="date" name="start" required></label>
+<label>Tarikh Pulang:<input type="date" name="end" required></label>
+<label>Jenis Kamera:
+<select name="camera">
+<option value="insta360-one-x2">Insta360 One X2</option>
+<option value="insta360-go-2">Insta360 Go 2</option>
+</select>
+</label>
+<button type="submit">Tempah Sekarang</button>
+</form>
+</section>
+
+<!-- Feedback/FAQ Section -->
+<section id="feedback" class="hidden">
+<h2>Kongsi Pendapat Anda</h2>
+<form name="feedback" method="POST" data-netlify="true">
+<input type="hidden" name="form-name" value="feedback">
+<label>Nama:<input type="text" name="name" required></label>
+<label>Email:<input type="email" name="email"></label>
+<label>Feedback:<textarea name="message" required></textarea></label>
+<button type="submit">Hantar</button>
+</form>
+
+<h2>FAQ</h2>
+<ul class="faq">
+<li><strong>Berapa lama sewa minimum?</strong> Minimum 1 hari.</li>
+<li><strong>Apa berlaku jika rosak?</strong> Penyewa wajib bayar kos kerosakan.</li>
+<li><strong>Bolehkah saya batalkan tempahan?</strong> Deposit terbatal jika selepas bayaran.</li>
+<li><strong>Ada caj lewat pulang?</strong> RM10/jam jika lewat.</li>
+</ul>
+</section>
+
+<script>
+// --- JS ---
+// Pop-up
+function closePopup() {
+document.getElementById('popup').style.display='none';
+}
+
+// Section navigation
+function showSection(sectionId) {
+const sections = ['home','booking','feedback'];
+sections.forEach(id=>{
+document.getElementById(id).classList.add('hidden');
+});
+document.getElementById(sectionId).classList.remove('hidden');
+}
+</script>
+</body>
+</html>
